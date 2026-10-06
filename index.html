@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منة الله إبراهيم — Full-Stack Web Developer</title>
+<meta name="description" content="بورتفوليو منة الله إبراهيم، مطورة ويب متكاملة PHP · Laravel · Vue.js · AWS · Google Cloud">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0D1117;
+    --panel: #161B22;
+    --panel-2: #1C2330;
+    --border: #2A3140;
+    --text: #E6EDF3;
+    --muted: #8B949E;
+    --laravel: #FF6B4A;
+    --vue: #42B883;
+    --radius: 10px;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 24px; }
+  ::selection{ background:var(--vue); color:#04140c; }
+
+  /* subtle background grid */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity:.08;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,17,23,.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .logo{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700; font-size:18px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{ width:9px; height:9px; border-radius:50%; background:var(--vue); box-shadow:0 0 8px var(--vue);}
+  .nav-links{ display:flex; gap:28px; font-size:15px; color:var(--muted); }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links li{ list-style:none; }
+  .nav-links ul{ display:flex; gap:28px; }
+  @media(max-width:640px){ .nav-links{ display:none; } }
+
+  section{ position:relative; z-index:1; padding:96px 0; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--vue); font-size:13px; letter-spacing:.5px;
+    margin-bottom:14px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:"//"; color:var(--laravel); }
+  h2.section-title{ font-size:clamp(28px,4vw,40px); font-weight:900; margin-bottom:48px; }
+
+  /* HERO */
+  .hero{ padding:110px 0 90px; }
+  .hero-grid{
+    display:grid; grid-template-columns: 1fr; gap:56px; align-items:center; text-align:center;
+  }
+  .hero-grid .desc{ margin-left:auto; margin-right:auto; }
+  .hero-grid .btn-row{ justify-content:center; }
+  .hero h1{
+    font-size:clamp(36px,6vw,58px); font-weight:900; line-height:1.15; margin-bottom:16px;
+  }
+  .hero h1 span{ color:var(--vue); }
+  .hero p.role{
+    font-family:'JetBrains Mono', monospace; color:var(--laravel); font-size:16px; margin-bottom:22px;
+  }
+  .hero p.desc{ color:var(--muted); font-size:17px; max-width:520px; margin-bottom:34px; }
+  .btn-row{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono', monospace; font-size:14px; font-weight:500;
+    padding:13px 26px; border-radius:8px; border:1px solid var(--border);
+    transition:.2s;
+  }
+  .btn.primary{ background:var(--vue); color:#04140c; border-color:var(--vue); }
+  .btn.primary:hover{ box-shadow:0 0 0 3px rgba(66,184,131,.25); transform:translateY(-2px); }
+  .btn.ghost{ color:var(--text); }
+  .btn.ghost:hover{ border-color:var(--laravel); color:var(--laravel); }
+
+  /* SKILLS */
+  .tags{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:36px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:13.5px;
+    padding:8px 16px; border-radius:20px; border:1px solid var(--border);
+    background:var(--panel); color:var(--text); transition:.2s;
+  }
+  .tag:hover{ border-color:var(--vue); color:var(--vue); }
+  .soft-skills{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+  .soft-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; font-size:15px; color:var(--muted);
+  }
+  .soft-card b{ color:var(--text); display:block; margin-bottom:4px; font-weight:700; }
+
+  /* PROJECTS */
+  .projects-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; }
+  .projects-grid.single{ grid-template-columns:minmax(0,560px); }
+  .pcard{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column; transition:.25s;
+  }
+  .pcard:hover{ border-color:var(--vue); transform:translateY(-4px); }
+  .pcard .thumb{ position:relative; aspect-ratio:16/9; background:#000; display:block; }
+  .pcard .thumb img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+  .pcard .thumb.site{
+    background:linear-gradient(135deg,#0f1a24 0%,#12261f 100%);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
+    direction:ltr;
+  }
+  .site .url{ font-family:'JetBrains Mono',monospace; font-size:clamp(18px,3vw,24px); color:var(--text); font-weight:700; }
+  .site .url span{ color:var(--vue); }
+  .site .bar{ position:absolute; top:0; left:0; right:0; height:30px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px; padding:0 14px; background:rgba(13,17,23,.6); }
+  .site .bar i{ width:9px; height:9px; border-radius:50%; background:var(--border); display:block; }
+  .site .sub{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted); }
+  .pcard .play{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  }
+  .play span{
+    width:52px; height:52px; border-radius:50%; background:rgba(13,17,23,.75);
+    border:1px solid var(--vue); display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+  .pcard-body{ padding:22px; flex:1; display:flex; flex-direction:column; }
+  .pcard-body .stack{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--laravel); margin-bottom:8px; }
+  .pcard-body h3{ font-size:19px; margin-bottom:10px; }
+  .pcard-body p{ color:var(--muted); font-size:14.5px; margin-bottom:18px; flex:1; }
+  .feature-list{ list-style:none; display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .feature-list li{ font-size:13px; color:var(--text); border:1px solid var(--border); border-radius:6px; padding:3px 10px; background:var(--panel-2); }
+  .pcard-links{ display:flex; gap:14px; font-family:'JetBrains Mono',monospace; font-size:13px; }
+  .pcard-links a{ display:flex; align-items:center; gap:6px; color:var(--vue); }
+  .pcard-links a:hover{ text-decoration:underline; }
+
+  /* CERTIFICATES */
+  .cert-wrap{ display:grid; grid-template-columns:1fr 1.1fr; gap:40px; align-items:center; }
+  .cert-wrap + .cert-wrap{ margin-top:72px; }
+  @media(max-width:850px){ .cert-wrap{ grid-template-columns:1fr; } }
+  .cert-img{
+    border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+  }
+  .cert-img.photo{ max-width:420px; width:100%; justify-self:center; }
+  .cert-img.photo img{ width:100%; height:auto; }
+  .cert-log{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px; font-family:'JetBrains Mono',monospace; font-size:13.5px; direction:ltr; text-align:left;
+  }
+  .cert-log .line{ margin-bottom:10px; }
+  .cert-log .k{ color:var(--vue); }
+  .cert-log .v{ color:var(--text); }
+  .cert-log .divider{ color:var(--muted); margin:14px 0; }
+  .diploma-note{ margin-top:22px; color:var(--muted); font-size:14.5px; direction:rtl; text-align:right; }
+  .diploma-note b{ color:var(--text); }
+
+  /* CONTACT / FOOTER */
+  footer{ padding:80px 0 40px; border-top:1px solid var(--border); }
+  .contact-grid{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:32px; align-items:flex-end; }
+  .contact-links{ display:flex; gap:22px; flex-wrap:wrap; font-family:'JetBrains Mono',monospace; font-size:14px; }
+  .contact-links a{ display:flex; align-items:center; gap:8px; color:var(--muted); border:1px solid var(--border); padding:10px 18px; border-radius:8px; }
+  .contact-links a:hover{ color:var(--vue); border-color:var(--vue); }
+  .copyright{ margin-top:50px; text-align:center; color:var(--muted); font-size:13px; font-family:'JetBrains Mono',monospace; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>menna<span class="mono" style="color:var(--muted)">.dev</span></div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="#projects">المشاريع</a></li>
+        <li><a href="#skills">المهارات</a></li>
+        <li><a href="#certificates">الشهادات</a></li>
+        <li><a href="#contact">تواصل</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="role mono">Full-Stack Web Developer</p>
+      <h1>منة الله إبراهيم<span>.</span></h1>
+      <p class="desc">خريجة علوم حاسب من جامعة طنطا بتقدير <b style="color:var(--text)">امتياز</b>، بخبرة عملية في بناء تطبيقات ويب متكاملة باستخدام PHP وLaravel وVue.js وMySQL — عضوة فريق نشيطة وسريعة التعلّم.</p>
+      <div class="btn-row">
+        <a href="#projects" class="btn primary">شاهدي مشاريعي ↓</a>
+        <a href="#contact" class="btn ghost">تواصل معي</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <p class="eyebrow">tech_stack.json</p>
+    <h2 class="section-title">المهارات التقنية</h2>
+    <div class="tags">
+      <span class="tag">HTML5</span>
+      <span class="tag">CSS3</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Vue.js</span>
+      <span class="tag">PHP</span>
+      <span class="tag">Laravel</span>
+      <span class="tag">MySQL</span>
+      <span class="tag">Git &amp; GitHub</span>
+      <span class="tag">AWS</span>
+      <span class="tag">Google Cloud</span>
+    </div>
+    <div class="soft-skills">
+      <div class="soft-card"><b>عمل جماعي</b> عضوة فعّالة ومتعاونة في الفريق</div>
+      <div class="soft-card"><b>سرعة التعلّم</b> استيعاب سريع للتقنيات الجديدة</div>
+      <div class="soft-card"><b>حل المشكلات</b> اهتمام دقيق بالتفاصيل</div>
+      <div class="soft-card"><b>التزام قوي</b> أخلاقيات عمل عالية ومعرفة تقنية دقيقة</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <p class="eyebrow">projects/</p>
+    <h2 class="section-title">المشاريع</h2>
+    <div class="projects-grid single">
+
+      <div class="pcard">
+        <a class="thumb site" href="http://mennainvoices.com" target="_blank" rel="noopener" aria-label="زيارة موقع mennainvoices.com">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="url">menna<span>invoices</span>.com</div>
+          <div class="sub">Invoice management system</div>
+        </a>
+        <div class="pcard-body">
+          <p class="stack">PHP · Laravel · MySQL</p>
+          <h3>نظام إدارة الفواتير — Menna Invoices</h3>
+          <p>تطبيق ويب منشور على الإنترنت لإدارة الفواتير من البداية للنهاية: إضافة الفاتورة وربطها بالأقسام والمنتجات، وحساب الخصم والضريبة والإجمالي تلقائيًا، ومتابعة حالة الدفع وسجل كل تغيير يحصل عليها، مع إرفاق ملفات بكل فاتورة وإرسال إشعارات للمستخدمين.</p>
+          <ul class="feature-list">
+            <li>فواتير مدفوعة / غير مدفوعة / مدفوعة جزئيًا</li>
+            <li>أرشفة واسترجاع الفواتير</li>
+            <li>مرفقات لكل فاتورة</li>
+            <li>إشعارات للمستخدمين</li>
+            <li>تصدير إلى Excel</li>
+            <li>طباعة الفاتورة</li>
+          </ul>
+          <div class="pcard-links">
+            <a href="http://mennainvoices.com" target="_blank" rel="noopener">↗ زيارة الموقع</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="wrap">
+    <p class="eyebrow">certificates/</p>
+    <h2 class="section-title">الشهادات والخبرة العملية</h2>
+
+    <!-- University degree -->
+    <div class="cert-wrap">
+      <a class="cert-img photo" href="assets/university-certificate.jpg" target="_blank" rel="noopener" aria-label="فتح شهادة البكالوريوس بحجم كامل">
+        <img src="assets/university-certificate.jpg" alt="شهادة بكالوريوس العلوم تخصص علوم الحاسب — جامعة طنطا" loading="lazy">
+      </a>
+      <div>
+        <div class="cert-log">
+          <div class="line"><span class="k">university</span>: <span class="v">"Tanta University — Faculty of Science"</span></div>
+          <div class="line"><span class="k">degree</span>: <span class="v">"B.Sc. in Computer Science"</span></div>
+          <div class="line"><span class="k">session</span>: <span class="v">"June 2026"</span></div>
+          <div class="divider">-----------------------------</div>
+          <div class="line"><span class="k">grade</span>: <span class="v">"A (Excellent)"</span></div>
+          <div class="line"><span class="k">cumulative_gpa</span>: <span class="v">3.47 / 5</span></div>
+          <div class="line"><span class="k">percentage</span>: <span class="v">85.66%</span></div>
+        </div>
+        <p class="diploma-note"><b>بكالوريوس العلوم — تخصص علوم الحاسب</b><br>
+        جامعة طنطا، كلية العلوم. اعتُمدت الدرجة العلمية من مجلس الجامعة بتاريخ 30/07/2026. اضغطي على الصورة لعرض الشهادة بحجم كامل.</p>
+      </div>
+    </div>
+
+    <!-- Createivo training -->
+    <div class="cert-wrap">
+      <div class="cert-img">
+        <object data="assets/certificate-createivo.pdf" type="application/pdf" width="100%" style="min-height:420px;">
+          <p style="padding:20px;color:var(--muted);">
+            متصفحك لا يدعم عرض PDF مباشرة —
+            <a href="assets/certificate-createivo.pdf" target="_blank" rel="noopener" style="color:var(--vue);text-decoration:underline;">اضغطي هنا لفتح الشهادة</a>
+          </p>
+        </object>
+        <div style="padding:14px;text-align:center;border-top:1px solid var(--border);">
+          <a href="assets/certificate-createivo.pdf" target="_blank" rel="noopener" class="btn ghost" style="display:inline-block;">↗ فتح الشهادة PDF</a>
+        </div>
+      </div>
+      <div>
+        <div class="cert-log">
+          <div class="line"><span class="k">company</span>: <span class="v">"Createivo — El Mansoura Branch"</span></div>
+          <div class="line"><span class="k">role</span>: <span class="v">"Web Developer Trainee (PHP)"</span></div>
+          <div class="line"><span class="k">department</span>: <span class="v">"Web Design &amp; Development"</span></div>
+          <div class="line"><span class="k">duration</span>: <span class="v">"09/03/2026 → 18/05/2026"</span></div>
+          <div class="divider">-----------------------------</div>
+          <div class="line"><span class="k">evaluation</span>: <span class="v">"active, collaborative, excellent team member"</span></div>
+        </div>
+        <p class="diploma-note"><b>دبلوم تطوير الويب الشامل — Createivo</b><br>
+        بناء المواقع باستخدام HTML وCSS3 وJavaScript وVue.js وPHP وMySQL مع إطار عمل Laravel — تم الانتهاء منه في ديسمبر 2025.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow" style="margin-bottom:6px;">contact.sh</p>
+        <h2 style="font-size:28px; font-weight:900;">لنبني شيئًا معًا 🚀</h2>
+      </div>
+      <div class="contact-links">
+        <a href="tel:01223556392">📞 01223556392</a>
+        <a href="https://github.com/mennamb26-droid" target="_blank" rel="noopener">🐙 GitHub</a>
+        <a href="#top">📍 مصر</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Menna Allah Ibrahim — Built with HTML, CSS &amp; JavaScript</p>
+  </div>
+</footer>
+
+</body>
+</html>
